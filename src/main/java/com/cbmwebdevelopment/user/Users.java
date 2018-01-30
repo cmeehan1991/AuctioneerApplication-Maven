@@ -316,6 +316,8 @@ public class Users {
     public void resetPassword(UserInformationController controller, String username) {
         Connection conn = new DBConnection().connect();
         String userId = username == null ? controller.userId : getUserId(username);
+        System.out.println(username);
+        System.out.println(getUserId(username));
         String password = MainApp.randomPasswordGenerator(16);
         String sql = "UPDATE USERS SET PASSWORD = MD5(?), RESET_PASSWORD = ? WHERE ID = ?";
         try {
@@ -323,9 +325,13 @@ public class Users {
             ps.setString(1, password);
             ps.setBoolean(2, true);
             ps.setString(3, userId);
+            System.out.println(ps.toString());
             int rs = ps.executeUpdate();
             if (rs > 0) {
                 sendEmailNotification(password, controller.firstName + " " + controller.lastName, controller.username, controller.email, userId);
+                Notifications.create().text("Password updated for " + controller.firstName).showInformation();
+            }else {
+            		System.out.println("Password Not Updated");
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());

@@ -6,7 +6,6 @@ com/cbmwebdevelopment/bid/ViewBidsFXMLController.class
 com/cbmwebdevelopment/tablecontrollers/ItemsTableController.class
 com/cbmwebdevelopment/auction/AuctionDashboardFXMLController.class
 com/cbmwebdevelopment/bid/ViewBidsTableViewController.class
-com/cbmwebdevelopment/auction/SQLExceptino.class
 com/cbmwebdevelopment/items/ItemMain.class
 com/cbmwebdevelopment/tablecontrollers/CheckoutItemTableViewController$ItemData.class
 com/cbmwebdevelopment/bid/ViewBidsMain.class

@@ -5,6 +5,7 @@
  */
 package com.cbmwebdevelopment.items;
 
+import com.cbmwebdevelopment.auction.Auction;
 import com.cbmwebdevelopment.main.Values;
 import java.io.File;
 import java.io.IOException;
@@ -17,6 +18,7 @@ import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -51,10 +53,10 @@ public class ItemFXMLController implements Initializable {
     TextField itemNumberTextField, itemNameTextField, itemDescriptionTextField, minimumBidTextField, auctionSearchField;
 
     @FXML
-    PrefixSelectionComboBox itemTypeComboBox;
+    PrefixSelectionComboBox<String> itemTypeComboBox;
 
     @FXML
-    ListView auctionListView;
+    ListView<String> auctionListView;
 
     @FXML
     ToggleGroup itemAuctionTypeGroup;
@@ -82,6 +84,7 @@ public class ItemFXMLController implements Initializable {
 
     private List<String> missingItems;
     protected ObservableList<Node> children;
+    public static ObservableList<String> auctionIds = FXCollections.observableArrayList();
 
     @FXML
     protected void addItemImage(ActionEvent event) throws MalformedURLException {
@@ -162,9 +165,6 @@ public class ItemFXMLController implements Initializable {
     }
 
     protected void getItem(String itemNumber) {
-        children.forEach((node) -> {
-            node.setDisable(true);
-        });
         progressIndicator.setVisible(true);
         ExecutorService executor = Executors.newCachedThreadPool();
         executor.submit(() -> {
@@ -183,9 +183,8 @@ public class ItemFXMLController implements Initializable {
                     itemClosedLabel.setVisible(Boolean.parseBoolean(item.get("closed")));
                     itemTypeComboBox.getSelectionModel().select("N/A");
                     progressIndicator.setVisible(false);
-                    children.forEach((node) -> {
-                        node.setDisable(false);
-                    });
+                    System.out.println(item.get("auction"));
+                    auctionListView.getSelectionModel().select(item.get("auction"));
                 }
             });
             executor.shutdown();
@@ -193,7 +192,15 @@ public class ItemFXMLController implements Initializable {
     }
 
     private void getAuction(String text){
-        
+    	System.out.println("Getting auctions");
+        ExecutorService executor = Executors.newCachedThreadPool();
+        executor.submit(()->{
+	        	ObservableList<String> auctionNames = new Auction().getAuctionList(text);
+	        	Platform.runLater(()->{
+	        		auctionListView.getItems().setAll(auctionNames);
+	        	});
+	        	executor.shutdown();
+        });
     }
     
     /**
@@ -205,13 +212,13 @@ public class ItemFXMLController implements Initializable {
         itemClosedLabel.setVisible(false); // Setting this label to invisible by default.
         itemTypeComboBox.getItems().setAll(Values.AUCTION_ITEM_CATEGORIES);
         itemTypeComboBox.getSelectionModel().select(0);
-
-        // Main content nodes
-        children = mainContent.getChildren();
+        
+        // Get all auctions
+        getAuction(null);
 
         
         auctionSearchField.textProperty().addListener((obs, ov, nv)->{
-            
+        		getAuction(nv);
         });
     }
 

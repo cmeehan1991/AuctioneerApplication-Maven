@@ -5,6 +5,7 @@
  */
 package com.cbmwebdevelopment.items;
 
+import com.cbmwebdevelopment.main.MainApp;
 import com.cbmwebdevelopment.main.WindowController;
 import com.sibvisions.rad.ui.javafx.ext.mdi.FXDesktopPane;
 import com.sibvisions.rad.ui.javafx.ext.mdi.FXInternalWindow;
@@ -25,7 +26,7 @@ public class ItemMain extends Application {
     public boolean isNew;
     public String itemNumber;
     ViewItemsFXMLController itemsController;
-    public FXDesktopPane desktopPane;
+    public FXDesktopPane desktopPane = MainApp.desktopPane;
 
     @Override
     public void start(Stage primaryStage) throws IOException {

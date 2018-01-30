@@ -19,7 +19,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class MainFXMLController implements Initializable {
@@ -31,7 +30,6 @@ public class MainFXMLController implements Initializable {
     @FXML
     public FXToolBarRT39866 toolbar;
 
-    public Group group;
     private BidMain bidMain;
     private ItemMain itemMain;
     private ViewBidsMain viewBidsMain;
@@ -58,20 +56,9 @@ public class MainFXMLController implements Initializable {
 
     @FXML
     protected void viewEditBidder(ActionEvent event) throws IOException {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("View Item");
-        dialog.setHeaderText("View/Edit an existing item");
-        dialog.setContentText("Enter a valid item number");
-        dialog.showAndWait();
-
-        String bidderId = dialog.getEditor().getText();
-        if (!bidderId.trim().isEmpty()) {
-            BidderMain bidderMain = new BidderMain();
-            bidderMain.bidderId = bidderId;
-            bidderMain.isNew = false;
-            bidderMain.group = group;
-            bidderMain.start(new Stage());
-        }
+        BidderMain bidderMain = new BidderMain();
+        bidderMain.isNew = false;
+        bidderMain.start(new Stage());
     }
 
     @FXML
@@ -83,7 +70,6 @@ public class MainFXMLController implements Initializable {
 
         if (result.isPresent() && !result.get().trim().isEmpty()) {
             checkoutMain.bidderId = result.get();
-            checkoutMain.group = group;
             checkoutMain.start(new Stage());
         }
     }
@@ -92,14 +78,12 @@ public class MainFXMLController implements Initializable {
     protected void addBid(ActionEvent event) throws IOException {
         bidMain = new BidMain();
         bidMain.isNew = true;
-        bidMain.group = group;
         bidMain.start(new Stage());
     }
 
     @FXML
     protected void viewBids(ActionEvent event) throws IOException {
         viewBidsMain = new ViewBidsMain();
-        viewBidsMain.group = group;
         viewBidsMain.start(new Stage());
     }
 
@@ -107,7 +91,6 @@ public class MainFXMLController implements Initializable {
     protected void addNewItem(ActionEvent event) throws IOException {
         itemMain = new ItemMain();
         itemMain.isNew = true;
-        itemMain.group = group;
         itemMain.start(new Stage());
     }
 
@@ -124,7 +107,6 @@ public class MainFXMLController implements Initializable {
         itemMain = new ItemMain();
         itemMain.itemNumber = itemId;
         itemMain.isNew = false;
-        itemMain.group = group;
         itemMain.desktopPane = desktopPane;
         itemMain.start(new Stage());
     }
@@ -132,7 +114,6 @@ public class MainFXMLController implements Initializable {
     @FXML
     protected void viewAllItems(ActionEvent event) throws IOException {
         viewItems = new ViewItemsMain();
-        viewItems.group = group;
         viewItems.start(new Stage());
     }
 

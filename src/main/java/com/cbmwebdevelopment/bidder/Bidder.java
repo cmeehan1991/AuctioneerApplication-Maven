@@ -16,6 +16,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import org.controlsfx.control.Notifications;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -230,6 +235,8 @@ public class Bidder {
         return userEmail;
 
     }
+    
+
     
     /**
      * Returns a HashMap of bidder information to be printed onto an excel table.

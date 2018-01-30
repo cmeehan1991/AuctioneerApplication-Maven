@@ -3,12 +3,10 @@ package com.cbmwebdevelopment.main;
 import static com.cbmwebdevelopment.main.Values.IS_SIGNED_IN;
 import static com.cbmwebdevelopment.main.Values.OS;
 import com.cbmwebdevelopment.menus.CustomMenuBar;
-import com.cbmwebdevelopment.user.UserSignInFXMLController;
 import com.sibvisions.rad.ui.javafx.ext.FXToolBarRT39866;
 import com.sibvisions.rad.ui.javafx.ext.mdi.FXDesktopPane;
 import java.security.SecureRandom;
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -58,12 +56,7 @@ public class MainApp extends Application {
         } else {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/UserSignInFXML.fxml"));
             Parent root = loader.load();
-            UserSignInFXMLController signInController = (UserSignInFXMLController) loader.getController();
-                        
-            Scene scene = new Scene(root);
-
-            // Set a timer function to check the connection
-            
+            Scene scene = new Scene(root);            
             
             stage.setTitle("User Sign In | Auctioneer");
             stage.setScene(scene);

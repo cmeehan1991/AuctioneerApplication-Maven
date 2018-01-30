@@ -24,7 +24,6 @@ public class AuctionDashboardMain extends Application {
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AuctionDashboardFXML.fxml"));
         AnchorPane rootPane = (AnchorPane) loader.load();
-        AuctionDashboardFXMLController controller = loader.getController();
         
         FXInternalWindow internalWindow = new WindowController().newInternalWindow("Auction Dashboard", rootPane);
         desktopPane.getWindows().add(internalWindow);

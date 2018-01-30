@@ -12,7 +12,6 @@ import java.util.List;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -95,7 +94,7 @@ public class Alerts {
         return input;
     }
     
-    public Dialog commandLinkDialog(String title, String headerText, String content, HashMap<String, HashMap<String, Boolean>> options){
+    public CommandLinksDialog commandLinkDialog(String title, String headerText, String content, HashMap<String, HashMap<String, Boolean>> options){
         
         List<CommandLinksButtonType> links = new ArrayList<>();
         options.forEach((buttonTitle, nestedMap)->{
@@ -111,8 +110,8 @@ public class Alerts {
         return dialog;
     }
     
-    public Dialog usersDialog(String title, String headerText, String content){
-        Dialog<String> dialog = new Dialog();
+    public Dialog<String> usersDialog(String title, String headerText, String content){
+        Dialog<String> dialog = new Dialog<>();
         dialog.setTitle(title);
         dialog.setHeaderText(headerText);
         
@@ -128,7 +127,7 @@ public class Alerts {
         GridPane.setHgrow(gridPane, Priority.ALWAYS);
         GridPane.setVgrow(gridPane, Priority.ALWAYS);
         
-        ComboBox comboBox = new ComboBox();
+        ComboBox<String> comboBox = new ComboBox<>();
         comboBox.getItems().setAll(new Users().getAllUsers());
         
         gridPane.add(new Label("Choose One:"),0,0);

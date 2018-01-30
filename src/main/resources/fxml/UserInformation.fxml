@@ -2,10 +2,10 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -14,16 +14,14 @@
 
 <AnchorPane fx:id="anchorPane" prefHeight="365.0" prefWidth="793.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cbmwebdevelopment.user.UserInformationController">
    <children>
-      <ButtonBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #4e4e4e;;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <buttons>
-          <Button fx:id="saveUserButton" mnemonicParsing="false" onAction="#saveUser" text="Save" />
-        </buttons>
-      </ButtonBar>
       <ScrollPane layoutY="40.0" prefHeight="316.0" prefWidth="793.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
         <content>
           <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="313.0" prefWidth="791.0">
+               <padding>
+                  <Insets left="5.0" right="5.0" />
+               </padding>
                <children>
-                  <GridPane hgap="5.0" layoutY="14.0" prefHeight="402.0" prefWidth="791.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <GridPane hgap="5.0" prefHeight="402.0" prefWidth="791.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -75,11 +73,13 @@
                      </children>
                   </GridPane>
                </children>
-               <padding>
-                  <Insets left="5.0" right="5.0" />
-               </padding>
             </AnchorPane>
         </content>
       </ScrollPane>
+      <ToolBar prefHeight="40.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <items>
+          <Button fx:id="saveUserButton" mnemonicParsing="false" onAction="#saveUser" text="Save" />
+         </items>
+      </ToolBar>
    </children>
 </AnchorPane>

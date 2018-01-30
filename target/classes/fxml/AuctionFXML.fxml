@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.sibvisions.rad.ui.javafx.ext.FXTimePicker?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableView?>
@@ -16,7 +18,6 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import jfxtras.scene.control.CalendarTimeTextField?>
 <?import org.controlsfx.control.PrefixSelectionComboBox?>
 
 <AnchorPane id="AnchorPane" prefHeight="495.0" prefWidth="736.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cbmwebdevelopment.auction.AuctionFXMLController">
@@ -26,12 +27,11 @@
    <children>
       <ToolBar prefHeight="40.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <Button fx:id="saveAuctionButton" mnemonicParsing="false" onAction="#saveAuction" text="Save" />
+          <Button mnemonicParsing="false" onAction="#saveAuctionAction" text="Save" />
         </items>
       </ToolBar>
       <Label layoutX="14.0" layoutY="50.0" text="Auction No." />
-      <TextField fx:id="auctionIdTextField" editable="false" layoutX="91.0" layoutY="45.0" prefHeight="27.0" prefWidth="162.0" />
-      <Button layoutX="264.0" layoutY="45.0" mnemonicParsing="false" text="..." />
+      <TextField fx:id="auctionIdTextField" editable="false" layoutX="91.0" layoutY="45.0" prefHeight="27.0" prefWidth="62.0" />
       <TabPane layoutY="72.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0">
         <tabs>
           <Tab text="Auction Information">
@@ -66,8 +66,7 @@
                               <TextArea fx:id="auctionDescriptionTextArea" prefHeight="200.0" prefWidth="200.0" wrapText="true" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.rowSpan="3" />
                               <PrefixSelectionComboBox fx:id="auctionTypeComboBox" prefHeight="27.0" prefWidth="125.0" GridPane.rowIndex="7" />
                               <CheckBox fx:id="publicCheckBox" mnemonicParsing="false" text="Public" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                              <DatePicker fx:id="auctionDatePicker" prefHeight="27.0" prefWidth="201.0" GridPane.columnSpan="2" GridPane.rowIndex="9" />
-                              <CalendarTimeTextField fx:id="calendarTimeTextField" GridPane.rowIndex="10" />
+                              <DatePicker fx:id="auctionDatePicker" prefHeight="27.0" prefWidth="305.0" GridPane.columnSpan="2" GridPane.rowIndex="9" />
                               <TextField fx:id="buildingNameTextField" GridPane.columnIndex="3" GridPane.columnSpan="4" GridPane.rowIndex="1" />
                               <TextField fx:id="primaryAddressTextField" GridPane.columnIndex="3" GridPane.columnSpan="4" GridPane.rowIndex="3" />
                               <TextField fx:id="secondaryAddressTextField" GridPane.columnIndex="3" GridPane.rowIndex="5" />
@@ -77,6 +76,7 @@
                               <Label text="Country" GridPane.columnIndex="5" GridPane.rowIndex="6" />
                               <Label text="Postal Code" GridPane.columnIndex="6" GridPane.rowIndex="4" />
                               <TextField fx:id="postalCodeTextField" GridPane.columnIndex="6" GridPane.rowIndex="5" />
+                              <PrefixSelectionComboBox fx:id="stateComboBox" prefHeight="27.0" prefWidth="195.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="7" />
                               <PrefixSelectionComboBox fx:id="countryComboBox" prefHeight="27.0" prefWidth="179.0" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="7" />
                               <Label text="Title" />
                               <Label text="Description" GridPane.rowIndex="2" />
@@ -85,7 +85,7 @@
                               <Label text="Type" GridPane.rowIndex="6" />
                               <Label text="Date &amp; Time" GridPane.rowIndex="8" />
                               <Label text="Apt./Suite/Bld No." GridPane.columnIndex="3" GridPane.rowIndex="4" />
-                              <PrefixSelectionComboBox fx:id="stateComboBox" prefHeight="27.0" prefWidth="195.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="7" />
+                              <FXTimePicker fx:id="fxTimePicker" GridPane.columnSpan="2" GridPane.rowIndex="10" />
                            </children>
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -106,5 +106,6 @@
           </Tab>
         </tabs>
       </TabPane>
+      <ProgressIndicator fx:id="progressIndicator" AnchorPane.bottomAnchor="221.0" AnchorPane.leftAnchor="342.0" AnchorPane.rightAnchor="342.0" AnchorPane.topAnchor="221.0" />
    </children>
 </AnchorPane>

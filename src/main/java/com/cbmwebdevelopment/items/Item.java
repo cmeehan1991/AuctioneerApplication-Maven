@@ -7,6 +7,7 @@ package com.cbmwebdevelopment.items;
 
 import com.cbmwebdevelopment.bid.BidFXMLController;
 import com.cbmwebdevelopment.connections.DBConnection;
+import com.cbmwebdevelopment.main.Values;
 import com.cbmwebdevelopment.tablecontrollers.ItemsTableController.AllItems;
 import java.io.IOException;
 import java.sql.Connection;
@@ -97,20 +98,21 @@ public class Item {
         HashMap<String, String> results = new HashMap<>();
 
         Connection conn = new DBConnection().connect();
-        String sql = "SELECT NAME, DESCRIPTION, IMAGES, RESERVE, SILENT_AUCTION, LIVE_AUCTION, CLOSED FROM AUCTION_ITEMS WHERE ID =?";
+        String sql = "SELECT AUCTION_ITEMS.NAME AS 'NAME', AUCTION_ITEMS.DESCRIPTION, AUCTIONS.NAME as 'AUCTION', AUCTION_ITEMS.RESERVE, AUCTION_ITEMS.SILENT_AUCTION, AUCTION_ITEMS.LIVE_AUCTION, AUCTION_ITEMS.CLOSED FROM AUCTION_ITEMS INNER JOIN AUCTIONS ON AUCTION_ITEMS.AUCTION_ID = AUCTIONS.ID WHERE AUCTION_ITEMS.ID =? AND AUCTION_ITEMS.ORGANIZATION_ID = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, itemId);
+            ps.setString(2, Values.ORGANIZATION_ID);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 System.out.println("Has results");
-                results.put("name", rs.getString("name"));
+                results.put("name", rs.getString("NAME"));
                 results.put("description", rs.getString("DESCRIPTION"));
-                results.put("imageUrl", rs.getString("IMAGES"));
                 results.put("reserve", rs.getString("RESERVE"));
                 results.put("silentAuction", String.valueOf(rs.getBoolean("SILENT_AUCTION")));
                 results.put("liveAuction", String.valueOf(rs.getBoolean("LIVE_AUCTION")));
                 results.put("closed", String.valueOf(rs.getBoolean("CLOSED")));
+                results.put("auction", rs.getString("AUCTION"));
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());

@@ -18,30 +18,31 @@ import javafx.scene.control.cell.PropertyValueFactory;
  * @author cmeehan
  */
 public class AuctionItemsTableViewController {
-    private ObservableList<AuctionItems> data = FXCollections.observableArrayList();
-    public void tableController(TableView tableView){
-        TableColumn<AuctionItems, Integer> idColumn = new TableColumn("ID");
-        TableColumn<AuctionItems, String> nameColumn = new TableColumn("Item Name");
-        TableColumn<AuctionItems, String> descriptionColumn = new TableColumn("Description");
+    private ObservableList<AuctionItem> data = FXCollections.observableArrayList();
+    @SuppressWarnings("unchecked")
+	public void tableController(TableView<AuctionItem> auctionItemsTableView){
+        TableColumn<AuctionItem, Integer> idColumn = new TableColumn<>("ID");
+        TableColumn<AuctionItem, String> nameColumn = new TableColumn<>("Item Name");
+        TableColumn<AuctionItem, String> descriptionColumn = new TableColumn<>("Description");
         
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         
-        idColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(0.10));
-        nameColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(0.33));
-        descriptionColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(0.67));
+        idColumn.prefWidthProperty().bind(auctionItemsTableView.widthProperty().multiply(0.10));
+        nameColumn.prefWidthProperty().bind(auctionItemsTableView.widthProperty().multiply(0.33));
+        descriptionColumn.prefWidthProperty().bind(auctionItemsTableView.widthProperty().multiply(0.67));
         
-        tableView.getColumns().setAll(idColumn, nameColumn, descriptionColumn);
-        tableView.getItems().setAll(data);
-        tableView.setEditable(false);
+        auctionItemsTableView.getColumns().setAll(idColumn, nameColumn, descriptionColumn);
+        auctionItemsTableView.getItems().setAll(data);
+        auctionItemsTableView.setEditable(false);
     }
     
-    public static class AuctionItems{
+    public static class AuctionItem{
         private final SimpleStringProperty name, description;
         private final SimpleIntegerProperty id;
         
-        public AuctionItems(Integer id, String name, String description){
+        public AuctionItem(Integer id, String name, String description){
             this.id = new SimpleIntegerProperty(id);
             this.name = new SimpleStringProperty(name);
             this.description = new SimpleStringProperty(description);
@@ -53,6 +54,22 @@ public class AuctionItemsTableViewController {
         
         public Integer getId(Integer val){
             return id.getValue();
+        }
+        
+        public void setName(String val){
+        		name.set(val);
+        }
+        
+        public String getName(){
+            return name.getValue();
+        }
+        
+        public void setDescription(String val){
+        	description.set(val);
+        }
+        
+        public String getDescription(){
+            return description.getValue();
         }
     }
 }

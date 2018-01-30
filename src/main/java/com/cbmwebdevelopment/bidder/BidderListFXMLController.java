@@ -37,7 +37,7 @@ public class BidderListFXMLController implements Initializable {
     TextField searchInput;
 
     @FXML
-    TableView biddersTableView;
+    TableView<Bidders> biddersTableView;
 
     @FXML
     ProgressIndicator progressIndicator;
@@ -63,7 +63,6 @@ public class BidderListFXMLController implements Initializable {
         ObservableList<Bidders> bidders = biddersTableView.getSelectionModel().getSelectedItems();
         bidders.forEach((bidder) -> {
             bidderMain.isNew = false;
-            bidderMain.group = group;
             bidderMain.bidderId = String.valueOf(bidder.getId());
             try {
                 bidderMain.start(new Stage());
@@ -113,7 +112,6 @@ public class BidderListFXMLController implements Initializable {
                 if (event.getClickCount() == 2 && !row.isEmpty()) {
                     BidderMain bidderMain = new BidderMain();
                     bidderMain.isNew = false;
-                    bidderMain.group = group;
                     bidderMain.bidderId = String.valueOf(row.getItem().getId());
                     try {
                         bidderMain.start(new Stage());

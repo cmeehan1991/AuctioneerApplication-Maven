@@ -6,14 +6,17 @@
 package com.cbmwebdevelopment.items;
 
 import java.io.IOException;
+
+import com.cbmwebdevelopment.main.MainApp;
+import com.cbmwebdevelopment.main.WindowController;
+import com.sibvisions.rad.ui.javafx.ext.mdi.FXDesktopPane;
+import com.sibvisions.rad.ui.javafx.ext.mdi.FXInternalWindow;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import jfxtras.labs.scene.control.window.CloseIcon;
-import jfxtras.labs.scene.control.window.Window;
 
 /**
  *
@@ -22,26 +25,14 @@ import jfxtras.labs.scene.control.window.Window;
 public class ViewItemsMain extends Application {
 
     public Group group;
-
+    private FXDesktopPane desktopPane = MainApp.desktopPane;
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ViewItemsFXML.fxml"));
-        Parent root = (Parent) loader.load();
-        ViewItemsFXMLController controller = (ViewItemsFXMLController) loader.getController();
-        controller.group = group;
+        AnchorPane rootAnchorPane = (AnchorPane) loader.load();
         
-        Scene scene = new Scene(root);
-        
-        Window window = new Window("Auction Items");
-        window.setLayoutX(10);
-        window.setLayoutY(100);
-        window.setPrefHeight(400);
-        window.setPrefWidth(800);
-        window.getRightIcons().add(new CloseIcon(window));
-        window.getContentPane().getChildren().add(root);
-        
-        group.getChildren().add(window);
-        
+        FXInternalWindow fxInternalWindow = new WindowController().newInternalWindow("All Items", rootAnchorPane);
+        desktopPane.getWindows().add(fxInternalWindow);
     }
 
     /**

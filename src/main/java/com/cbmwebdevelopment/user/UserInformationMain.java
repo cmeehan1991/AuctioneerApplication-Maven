@@ -6,13 +6,16 @@
 package com.cbmwebdevelopment.user;
 
 import java.io.IOException;
+
+import com.cbmwebdevelopment.main.MainApp;
+import com.cbmwebdevelopment.main.WindowController;
+import com.sibvisions.rad.ui.javafx.ext.mdi.FXDesktopPane;
+import com.sibvisions.rad.ui.javafx.ext.mdi.FXInternalWindow;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
-import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import jfxtras.labs.scene.control.window.CloseIcon;
-import jfxtras.labs.scene.control.window.Window;
 
 /**
  *
@@ -21,13 +24,13 @@ import jfxtras.labs.scene.control.window.Window;
 public class UserInformationMain extends Application {
 
     public boolean newUser;
-    public Group group;
     public String userId;
+    public FXDesktopPane desktopPane = MainApp.desktopPane;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/UserInformation.fxml"));
-        Parent root = (Parent) loader.load();
+        AnchorPane root = (AnchorPane) loader.load();
         UserInformationController controller = (UserInformationController) loader.getController();
         controller.isNew = newUser;
         
@@ -36,17 +39,8 @@ public class UserInformationMain extends Application {
             users.setUserInformation(controller, userId);
         }
         
-        Window window = new Window("User");
-        window.setBoundsListenerEnabled(true);
-        window.setLayoutX(10);
-        window.setLayoutY(100);
-        window.setPrefWidth(800);
-        window.setPrefHeight(400);
-        window.getRightIcons().add(new CloseIcon(window));
-        window.getContentPane().getChildren().add(root);
-        
-        group.getBoundsInParent();
-        group.getChildren().add(window);
+        FXInternalWindow internalWindow = new WindowController().newInternalWindow("User Information", root);
+        desktopPane.getWindows().add(internalWindow);
     }
 
     /**

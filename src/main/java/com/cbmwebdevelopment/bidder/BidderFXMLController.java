@@ -15,6 +15,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,6 +25,8 @@ import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import org.controlsfx.control.Notifications;
 import org.controlsfx.control.PrefixSelectionComboBox;
 
 /**
@@ -35,7 +40,7 @@ public class BidderFXMLController implements Initializable {
     TextField bidderIdTextField, firstNameTextField, lastNameTextField, streetAddressTextField, suiteTextField, cityTextField, postalCodeTextField, phoneNumberTextField, emailAddressTextField;
 
     @FXML
-    PrefixSelectionComboBox bidderPrefixComboBox, suffixComboBox, stateComboBox;
+    PrefixSelectionComboBox<String> bidderPrefixComboBox, suffixComboBox, stateComboBox;
     
     @FXML
     Label firstNameLabel, lastNameLabel, streetAddressLabel, cityLabel, postalCodeLabel, phoneNumberLabel, emailAddressLabel;
@@ -138,6 +143,34 @@ public class BidderFXMLController implements Initializable {
         email = emailAddressTextField.getText();
     }
 
+    /**
+     * Get the bidder information
+     * @param id
+     */
+    public void getBidder(String id) {
+		ExecutorService executor = Executors.newCachedThreadPool();
+		executor.submit(()->{
+			Bidder bidder = new Bidder();
+            HashMap<String, String> bidderInfo = bidder.getUser(id);
+            if(!bidderInfo.isEmpty()){
+                bidderIdTextField.setText(id);
+                bidderPrefixComboBox.getSelectionModel().select(bidderInfo.get("prefix"));
+                firstNameTextField.setText(bidderInfo.get("firstName"));
+                lastNameTextField.setText(bidderInfo.get("lastName"));
+                suffixComboBox.getSelectionModel().select(bidderInfo.get("suffix"));
+                phoneNumberTextField.setText(bidderInfo.get("telephone"));
+                emailAddressTextField.setText(bidderInfo.get("email"));
+                streetAddressTextField.setText(bidderInfo.get("primaryAddress"));
+                suiteTextField.setText(bidderInfo.get("secondaryAddress"));
+                cityTextField.setText(bidderInfo.get("city"));
+                stateComboBox.getSelectionModel().select(bidderInfo.get("state"));
+                postalCodeTextField.setText(bidderInfo.get("postalCode"));
+            }else{
+        			Notifications.create().text("The bidder ID you entered does not match anything on record. Please try again.").showInformation();
+            }
+		});
+}
+    
     /**
      * Initializes the controller class.
      */

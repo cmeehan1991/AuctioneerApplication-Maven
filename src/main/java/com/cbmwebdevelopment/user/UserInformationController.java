@@ -130,8 +130,10 @@ public class UserInformationController implements Initializable {
 
     @FXML
     protected void resetPassword(ActionEvent event) {
-        Users users = new Users();
-        users.resetPassword(this, null);
+	    	if(validateEntries()) {
+	        Users users = new Users();
+	        users.resetPassword(this, username);
+	    	}
     }
 
     /**

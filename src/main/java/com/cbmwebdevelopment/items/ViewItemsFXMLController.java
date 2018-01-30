@@ -36,7 +36,7 @@ public class ViewItemsFXMLController implements Initializable {
     TextField searchTextField;
 
     @FXML
-    TableView itemsTableView;
+    TableView<AllItems> itemsTableView;
 
     private ItemsTableController tableController;
 

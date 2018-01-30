@@ -106,7 +106,6 @@ public class CustomMenuBar {
         args[1].setOnAction((event) -> {
             BidderMain bidder = new BidderMain();
             bidder.isNew = true;
-            bidder.group = group;
             try {
                 bidder.start(new Stage());
             } catch (IOException ex) {
@@ -123,8 +122,12 @@ public class CustomMenuBar {
         args[3].setOnAction((event) -> {
             System.out.println("View Bidders");
             BidderListMain bidderListMain = new BidderListMain();
-            bidderListMain.group = group;
-            bidderListMain.start(new Stage());
+            try {
+				bidderListMain.start(new Stage());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         });
 
         // View the items in the application
@@ -160,7 +163,6 @@ public class CustomMenuBar {
         args[8].setOnAction((event) -> {
             UserInformationMain uMain = new UserInformationMain();
             uMain.newUser = true;
-            uMain.group = group;
             try {
                 uMain.start(new Stage());
             } catch (IOException ex) {
@@ -175,7 +177,6 @@ public class CustomMenuBar {
             Optional<String> user = dialog.showAndWait();
             if (user.isPresent()) {
                 UserInformationMain main = new UserInformationMain();
-                main.group = group;
                 main.newUser = false;
                 main.userId = user.get().split(" - ")[0];
                 try {
